@@ -28,14 +28,16 @@ class App extends Component {
     }
 
     render(){
-        const filteredRobots = this.state.robots.filter(robots =>{
-            return robots.name.toLocaleLowerCase().includes(this.state.searchfield.toLocaleLowerCase());
+        const { robots, searchfield } = this.state;
+        // const filteredRobots = this.state.robots.filter(robot =>{
+        const filteredRobots = robots.filter(robot =>{
+            return robot.name.toLocaleLowerCase().includes(searchfield.toLocaleLowerCase());
         })
 
-        if (this.state.robots.length === 0){
-            return <h1 className="">Loading</h1>
-        }else{
-            return(
+        // if (robots.length === 0){
+        return !robots.length ?
+            <h1 className="">Loading</h1> :
+                (
                 <div className="tc">
                     <h1 className="f1">RoboFriends</h1>
                     <SearchBox searchChange={this.onSerachChange}/>
@@ -43,8 +45,7 @@ class App extends Component {
                     <CardList robots={filteredRobots}/>
                     </Scroll>
                 </div>
-            );
-        }
+                );
     }
 }
 
